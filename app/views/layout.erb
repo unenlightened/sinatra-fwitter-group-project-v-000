@@ -4,6 +4,10 @@
     <title>Fwitter</title>
   </head>
   <body>
+    <nav>
+      <a href="/">Fwitter</a>
+      <%= '<a href="/logout"> Logout </a>' if logged_in? %>
+    </nav>
 
     <%= yield %>
 
