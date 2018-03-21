@@ -9,23 +9,28 @@ class TweetsController < ApplicationController
   end
 
   get '/tweets/:id' do
+    @tweet = Tweet.find(params[:id])
     erb :'tweets/show_tweet'
   end
 
   get '/tweets/:id/edit' do
-    erb :'tweets/edit'
+    @tweet = Tweet.find(params[:id])
+    erb :'tweets/edit_tweet'
   end
 
   post '/tweets' do
+    @tweet = Tweet.create(content: "blah")
     redirect "/tweets/#{@tweet.id}"
   end
 
   post '/tweets/:id' do
+    @tweet = Tweet.find(params[:id])
     redirect "/tweets/#{@tweet.id}"
   end
 
   post '/tweets/:id/delete' do
-    erb :'/tweets/tweets'
+    @tweet = Tweet.find(params[:id])
+    erb :'tweets/tweets'
   end
 
 end
