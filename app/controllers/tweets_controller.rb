@@ -1,56 +1,42 @@
 class TweetsController < ApplicationController
+  if !logged_in
+    redirect "/login"
+  else
 
-  get '/tweets' do
-    if logged_in?
+    get '/tweets' do
       erb :'tweets/tweets'
-    else
-      redirect "/login"
     end
-  end
 
-  get '/tweets/new' do
-    if logged_in?
+    get '/tweets/new' do
       erb :'tweets/create_tweet'
-    else
-      redirect "/login"
     end
-  end
 
-  get '/tweets/:id' do
-    if logged_in?
+    get '/tweets/:id' do
       @tweet = Tweet.find(params[:id])
       erb :'tweets/show_tweet'
-    else
-      redirect "/login"
     end
-  end
 
-  get '/tweets/:id/edit' do
-    if logged_in?
+    get '/tweets/:id/edit' do
       @tweet = Tweet.find(params[:id])
       erb :'tweets/edit_tweet'
-    else
-      redirect "/login"
     end
-  end
 
-  post '/tweets' do
-    redirect "/tweets/new" if params[:content].empty?
+    post '/tweets' do
+      redirect "/tweets/new" if params[:content].empty?
 
-    @tweet = Tweet.create(content: params[:content], user_id: current_user.id)
-    redirect "/tweets/#{@tweet.id}"
-  end
+      @tweet = Tweet.create(content: params[:content], user_id: current_user.id)
+      redirect "/tweets/#{@tweet.id}"
+    end
 
-  post '/tweets/:id' do
-    redirect "/tweets/#{params[:id]}/edit" if params[:content].empty?
+    post '/tweets/:id' do
+      redirect "/tweets/#{params[:id]}/edit" if params[:content].empty?
 
-    @tweet = Tweet.find(params[:id])
-    @tweet.update(content: params[:content])
-    redirect "/tweets/#{@tweet.id}"
-  end
+      @tweet = Tweet.find(params[:id])
+      @tweet.update(content: params[:content])
+      redirect "/tweets/#{@tweet.id}"
+    end
 
-  post '/tweets/:id/delete' do
-    if logged_in?
+    post '/tweets/:id/delete' do
       @tweet = Tweet.find(params[:id])
       if @tweet.user == current_user
         @tweet.destroy
@@ -58,9 +44,7 @@ class TweetsController < ApplicationController
       else
         redirect "/tweets/#{@tweet.id}"
       end
-    else
-      redirect "/login"
     end
-  end
+  end #logged_in?
 
 end
