@@ -1,44 +1,32 @@
 class UsersController < ApplicationController
 
-  get '/signup' do
-    if logged_in?
-      redirect "/tweets"
-    else
-      erb :'users/create_user'
-    end
+  get '/signup', :auth => :logged_in? do
+    redirect "/tweets"
+    erb :'users/create_user'
   end
 
   get '/login' do
-    if logged_in?
-      redirect "/tweets"
-    else
-      erb :'users/login'
-    end
+    redirect "/tweets" if logged_in?
+    erb :'users/login'
   end
 
-  get '/logout' do
-    if logged_in?
-      session.clear
-      redirect "/login"
-    else
-      redirect "/"
-    end
+  get '/logout', :auth => :logged_in? do
+    session.clear
+    redirect "/login"
   end
 
-  get '/users/:slug' do
+  get '/users/:slug', :auth => :logged_in? do
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end
 
   post '/signup' do
-    @user = User.new(username: params[:username], email: params[:email], password: params[:password])
+    @user = User.create(username: params[:username], email: params[:email], password: params[:password])
 
-    if !params[:username].empty? && !params[:email].empty? && @user.save
-      session[:user_id] = @user.id
-      redirect "/tweets"
-    else
-      redirect "/signup"
-    end
+    redirect "/signup" if !@user.valid?
+
+    session[:user_id] = @user.id
+    redirect "/tweets"
   end
 
   post '/login' do
