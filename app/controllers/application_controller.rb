@@ -18,11 +18,7 @@ class ApplicationController < Sinatra::Base
   end
 
   register do
-    def auth (type)
-      condition do
-        redirect "/login" unless send("#{type}")
-      end
-    end
+  
   end #register
 
   helpers do
@@ -33,6 +29,12 @@ class ApplicationController < Sinatra::Base
 		def current_user
 			@current_user ||= User.find(session[:user_id]) if session[:user_id]
 		end
+
+    def auth (type)
+      condition do
+        redirect "/login" unless send("#{type}")
+      end
+    end
 	end #helpers
 
 end
