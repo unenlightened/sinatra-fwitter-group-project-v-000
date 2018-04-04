@@ -24,7 +24,7 @@ class TweetsController < ApplicationController
   end
 
   post '/tweets' do
-    @tweet = current_user.tweets.create(content: params[:content])
+    @tweet = current_user.tweets.update(content: params[:content])
     redirect @tweet.valid? ? "/tweets/#{@tweet.id}" : "/tweets/new"
   end
 

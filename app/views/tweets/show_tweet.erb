@@ -1,8 +1,9 @@
-<h1><%= @tweet.content %></h1>
-- <a href="/users/<%= @tweet.user.slug %>"><%= @tweet.user.username %></a>
+<h1>Edit Tweet</h1>
 
-<br><br>
+<form action="/tweets/<%= @tweet.id %>" method="post">
+  <input type="hiddent" name="_method" value="patch">
+  <textarea rows="5" cols="75" name="content" id="content"><%= @tweet.content %></textarea>
+  <br><br>
 
-<form action="/tweets/<%= @tweet.id %>/delete" method="post">
-  <a href="/tweets/<%= @tweet.id %>/edit">Edit Tweet</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="submit" id="Delete Tweet" value="Delete Tweet">
+  <input type="submit" name="submit" id="submit" value="edit">
 </form>

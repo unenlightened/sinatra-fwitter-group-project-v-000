@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
-  get '/signup', :auth => :logged_in? do
-    redirect "/tweets"
+  get '/signup' do
+    redirect "/tweets" if logged_in?
     erb :'users/create_user'
   end
 
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     redirect "/login"
   end
 
-  get '/users/:slug', :auth => :logged_in? do
+  get '/users/:slug' do
     @user = User.find_by_slug(params[:slug])
     erb :'users/show'
   end
