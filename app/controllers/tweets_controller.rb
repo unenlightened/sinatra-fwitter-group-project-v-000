@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
 
-  get '/tweets', :auth => blah do
+  get '/tweets', :auth => :logged_in? do
     erb :'tweets/tweets'
   end
 
@@ -45,4 +45,4 @@ class TweetsController < ApplicationController
     end
   end
 
-end
+en
