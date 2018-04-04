@@ -18,7 +18,7 @@ class ApplicationController < Sinatra::Base
   end
 
   register do
-    set(:auth) 
+    set(:auth)
       condition do
         redirect "/login" unless logged_in?
       end
