@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
 
-  get '/tweets', :auth => :true do
+  get '/tweets', :auth => true do
     erb :'tweets/tweets'
   end
 
