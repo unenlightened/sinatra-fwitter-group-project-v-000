@@ -18,9 +18,9 @@ class ApplicationController < Sinatra::Base
   end
 
   register do
-    def auth (type)
+    set(:auth)
       condition do
-        redirect "/login" unless send("#{type}")
+        redirect "/login" unless logged_in?
       end
     end
   end #register
