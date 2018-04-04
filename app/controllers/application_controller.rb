@@ -20,13 +20,13 @@ class ApplicationController < Sinatra::Base
 
 
   helpers do
-    register do
+
       def auth (type)
         condition do
           redirect "/login" unless send("#{type}")
         end
       end
-    end #register
+
 
 		def logged_in?
       !!current_user
