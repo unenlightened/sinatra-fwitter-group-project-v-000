@@ -17,13 +17,13 @@ class ApplicationController < Sinatra::Base
     end
   end
 
-  register do
-    set(:auth)
-      condition do
-        redirect "/login" unless logged_in?
-      end
-    end
-  end #register
+  # register do
+  #   set(:auth)
+  #     condition do
+  #       redirect "/login" unless logged_in?
+  #     end
+  #   end
+  # end #register
 
   helpers do
 		def logged_in?
